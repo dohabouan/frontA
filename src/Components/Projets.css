@@ -1,0 +1,37 @@
+/* Projets.css */
+
+.projet-container {
+    margin-left: 250px; /* Adjust this value to match your left navbar width */
+    padding: 20px;
+}
+
+.projet-form {
+    margin-bottom: 20px;
+}
+
+.projet-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.projet-list li {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projet-list li h4 {
+    margin: 0;
+}
+
+.projet-list li button {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}

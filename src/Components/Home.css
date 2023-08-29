@@ -1,0 +1,16 @@
+/* Home.css */
+.home-container {
+    display: flex;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px; /* Ajustez selon vos besoins */
+  }
+  
+  .welcome {
+    margin-top: 20px; /* Ajustez selon vos besoins */
+  }
+  
+  /* Autres styles */
+  
