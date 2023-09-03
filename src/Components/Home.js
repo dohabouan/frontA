@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import './Home.css';
 import { UserContext } from './UserContext';
-import Navbar from './NavBar'; // Assurez-vous du chemin correct
+import Navbar from './NavBar';
 
 function Home() {
   const logger = useContext(UserContext);
-  const name = logger?.user?.nom + ' ' + logger?.user?.prenom;
+  const name = logger?.collaborator?.nom + ' ' ;
   const upperCaseName = name?.toUpperCase();
 
   return (

@@ -79,13 +79,12 @@ function Login(props) {
   return (
     
     <Grid container className="gridStyle">
-      <Toast ref={toast}  />
+      <Toast ref={toast} />
       <Grid className="welcomeDiv">
-          <p>WELCOME TO <span className="spanOne">PROJECT MANAGER</span></p>
+          <p>WELCOME TO <span className="spanOne">MARKS MANAGER</span></p>
       </Grid>
       <Grid>
-      <Paper elevation={20} sx={{ borderRadius: '10%', backgroundColor: 'white' }} className="paperStyle">
-
+        <Paper elevation={20} sx={{ borderRadius: '10% 30% 60% 30%' , backgroundColor :'white'}} className="paperStyle" >
           <form onSubmit={handleSubmit}>
               <Grid align="center">
                   <Avatar style={avatarStyle} />
@@ -95,7 +94,6 @@ function Login(props) {
                   <TextField
                   label="Login"
                   placeholder="Enter username"
-                  autocomplete="off" 
                   helperText={errorUserMessage}
                   required
                   value={username}
@@ -143,5 +141,6 @@ function Login(props) {
     </Grid>
   );
 }
+
 
 export default Login;

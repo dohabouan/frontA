@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate} from 'react-router-dom';
+import './Navbar.css'
 
 function NavScrollExample() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function NavScrollExample() {
   }
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar className="custom-navbar" expand="lg">
       <Container fluid>
         <Navbar.Brand href="/home">PROJECT MANAGER</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -28,18 +29,23 @@ function NavScrollExample() {
             <div style={{marginLeft:230}} />
             <Nav.Link href="/home">Home</Nav.Link>
             <Nav.Link href="/home/Projets">Projets</Nav.Link>
-            <Nav.Link href="/home/Team">Teams</Nav.Link>
-            <Nav.Link href="/home/calendrier">Calendrier</Nav.Link>
             <NavDropdown title="UserStories/Sprint" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/home/UserStories">UserStories</NavDropdown.Item>
               <NavDropdown.Item href="/home/Sprint">
                 Sprint
                 </NavDropdown.Item>  
                 </NavDropdown>
-            <NavDropdown title="Releases/Feedbacks" id="navbarScrollingDropdown">
+  
+                <NavDropdown title="Releases/Feedbacks" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/home/Releases">Releases</NavDropdown.Item>
               <NavDropdown.Item href="/home/Feedbacks">
                 Feedbacks
+                </NavDropdown.Item> 
+                </NavDropdown>
+            <NavDropdown title="Sprints/Tasks" id="navbarScrollingDropdown">
+              <NavDropdown.Item href="/home/Sprints">Sprints</NavDropdown.Item>
+              <NavDropdown.Item href="/home/Tasks">
+                Tasks
               </NavDropdown.Item>             
             </NavDropdown>
           </Nav>

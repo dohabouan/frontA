@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import './App.css';
 import Login from './Components/Login';
 import Home from './Components/Home';
-import Projet from './Components/Projets';
+import Projets from './Components/Projets';
 import PrivateRoute from './Components/PrivateRoute';
-
+import UserStory from './Components/UserStories';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
@@ -29,7 +29,9 @@ function App() {
             <Route index element={<Login />} />
             <Route path="login" element={<Login onSubmit={ getData } />} />
             <Route path="home" element={<PrivateRoute><Home /></PrivateRoute>} />
-            <Route path="/home/Projets" element={<PrivateRoute><Projet/></PrivateRoute>} />
+            <Route path="/home/Projets" element={<PrivateRoute><Projets/></PrivateRoute>} />
+            <Route path="/home/UserStories" element={<PrivateRoute><UserStory/></PrivateRoute>} />
+
            
         </Routes>
       </BrowserRouter>
