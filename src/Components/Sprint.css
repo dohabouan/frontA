@@ -1,19 +1,19 @@
 
-.UserStory-container {
-    margin-left: 250px; /* Adjust this value to match your left navbar width */
+.sprint-container {
+    margin-left: 250px; 
     padding: 20px;
 }
 
-.UserStory-form {
+.sprint-form {
     margin-bottom: 20px;
 }
 
-.UserStory-list {
+.sprint-list {
     list-style-type: none;
     padding: 0;
 }
 
-.UserStory-list li {
+.sprint-list li {
     background-color: #f4f4f4;
     border: 1px solid #ddd;
     padding: 10px;
@@ -23,28 +23,19 @@
     align-items: center;
 }
 
-.UserStory-list li h4 {
+.sprint-list li h4 {
     margin: 0;
 }
 
-.UserStory-list li button {
+.sprint-list li button {
     background-color: #e74c3c;
     color: white;
     border: none;
-    padding: 5px 20px;
+    padding: 5px 10px;
     cursor: pointer;
 }
 .error-message {
     color: red;
     margin-bottom: 10px;
 }
-
-
-
-  
-  
-
-   
-
-
 

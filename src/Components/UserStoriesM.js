@@ -13,12 +13,7 @@ import { classNames } from 'primereact/utils';
 import { Calendar } from 'primereact/calendar';
 import AddSprintDialog from './AddSprintDialog';
 
-
-
-
-
-
-const UserStory = () => {
+const UserStoryM = () => {
     let emptyUserStory = {
         id: '',
         description: "",
@@ -182,14 +177,6 @@ const UserStory = () => {
         setUserStory(_UserStory);
         }
     
-        const rightToolbarTemplate = () => {
-            return (
-                <React.Fragment>
-                    <Button label="New" icon="pi pi-plus" className="p-button-info mr-2" onClick={openNew} />
-                    <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedUserStories || !selectedUserStories.length} />
-                </React.Fragment>
-            )
-        }
         
         function getStatusBadgeClass(statut) {
             switch (statut) {
@@ -361,7 +348,7 @@ const UserStory = () => {
             <div className="list-text"></div>
             <Toast ref={toast} />
             <div className="card">
-              <Toolbar className="mb-4" right={rightToolbarTemplate}></Toolbar>
+              
               <DataTable
                 ref={dt}
                 value={UserStories}
@@ -494,4 +481,4 @@ const UserStory = () => {
 }
 
 
-    export default UserStory;    
+    export default UserStoryM;    

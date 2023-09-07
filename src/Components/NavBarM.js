@@ -16,7 +16,7 @@ function NavScrollExample() {
   return (
     <Navbar className="custom-navbar" expand="lg">
       <Container fluid>
-        <Navbar.Brand href="/home">PROJECT MANAGER</Navbar.Brand>
+        <Navbar.Brand href="/homeMaster">PROJECT MANAGER</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -25,10 +25,11 @@ function NavScrollExample() {
             navbarScroll
           >
             <div style={{ marginLeft: 230 }} />
-            <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/home/Projets">Projets</Nav.Link>
-            <Nav.Link href="/home/UserStories">UserStories/Sprint</Nav.Link>
-            <Nav.Link href="/home/Releases">Releases/Feedbacks</Nav.Link>
+            <Nav.Link href="/homeMaster">Home</Nav.Link>
+            <Nav.Link href="/homeMaster/ProjetsM">ProjetsM</Nav.Link>
+            <Nav.Link href="/homeMaster/UserStoriesM">UserStoriesM</Nav.Link>
+            <Nav.Link href="/homeMaster/ReleasesM">ReleasesM</Nav.Link>
+          
           </Nav>
           <div style={{ marginLeft: 490 }} />
           <Button

@@ -14,7 +14,7 @@ import { Calendar } from 'primereact/calendar';
 
 
 
-const Projets = () => {
+const ProjetsM = () => {
     let emptyProject = {
         id: '',
         startDate: "",
@@ -45,11 +45,7 @@ const Projets = () => {
             .then((data) => setProjects(data));
     },[]);
     
-    const openNew = () => {
-        setProject(emptyProject);
-        setSubmitted(false);
-        setProjectDialog(true);
-    }
+   
     const hideDialog = () => {
         setSubmitted(false);
         setProjectDialog(false);
@@ -159,15 +155,7 @@ const Projets = () => {
         setProject(_project);
         }
     
-        const rightToolbarTemplate = () => {
-            return (
-                <React.Fragment>
-                    <Button label="New" icon="pi pi-plus" className="p-button-info mr-2" onClick={openNew} />
-                    <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedProjects || !selectedProjects.length} />
-                </React.Fragment>
-            )
-        }
-        
+      
     
     
       const actionBodyTemplate = (rowData) => {
@@ -246,7 +234,7 @@ const Projets = () => {
             <div className="list-text"></div>
             <Toast ref={toast} />
             <div className="card">
-            <Toolbar className="mb-4" right={rightToolbarTemplate}></Toolbar>
+            
                 <DataTable
                     ref={dt}value={projects}selection={selectedProjects}onSelectionChange={(e) => setSelectedProjects(e.value)}
                     dataKey="id"paginator rows={10} rowsPerPageOptions={[5, 10, 25]}  
@@ -343,4 +331,4 @@ const Projets = () => {
 }
 
 
-    export default Projets;    
+    export default ProjetsM;    

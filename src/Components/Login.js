@@ -84,7 +84,7 @@ function Login(props) {
           <p>WELCOME TO <span className="spanOne">MARKS MANAGER</span></p>
       </Grid>
       <Grid>
-        <Paper elevation={20} sx={{ borderRadius: '10% 30% 60% 30%' , backgroundColor :'white'}} className="paperStyle" >
+        <Paper elevation={20} sx={{ borderRadius: '15%' , backgroundColor :'white'}} className="paperStyle" >
           <form onSubmit={handleSubmit}>
               <Grid align="center">
                   <Avatar style={avatarStyle} />

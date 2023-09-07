@@ -7,32 +7,39 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Toolbar } from 'primereact/toolbar';
 import Navbar from './NavBar';
-import './Projets.css';
+import './Sprint.css';
 import { classNames } from 'primereact/utils';
 import { Calendar } from 'primereact/calendar';
 
 
 
 
-const Projets = () => {
-    let emptyProject = {
+const Sprint = () => {
+    let emptySprint = {
         id: '',
+        description:'',
         startDate: "",
         endDate: "",
-        titre:"",
-        team:[
+        statut:"",
+        tasks:[
+            {
+            id:'',
+            description:"",
+            statut:"",
+            priority:""
+            }
         ]
     };
 
-    const [projects, setProjects] = useState([]);
-    const [projectDialog, setProjectDialog] = useState(false);
-    const [selectedProject, setSelectedProject] = useState(null);
-    const [selectedProjects, setSelectedProjects] = useState(null);
-    const [project, setProject] = useState([]);
+    const [Sprints, setSprints] = useState([]);
+    const [SprintDialog, setSprintDialog] = useState(false);
+    const [selectedSprint, setSelectedSprint] = useState(null);
+    const [selectedSprints, setSelectedSprints] = useState(null);
+    const [Sprint, setSprint] = useState([]);
     const [submitted, setSubmitted] = useState(false);
     const [globalFilter, setGlobalFilter] = useState(null);
-    const [deleteProjectDialog, setDeleteProjectDialog] = useState(false);
-    const [deleteProjectsDialog, setDeleteProjectsDialog] = useState(false);
+    const [deleteSprintDialog, setDeleteSprintDialog] = useState(false);
+    const [deleteSprintsDialog, setDeleteSprintsDialog] = useState(false);
     const [updateDialog, setUpdateDialog] = useState(false);
 
 
@@ -40,130 +47,129 @@ const Projets = () => {
     const dt = useRef(null);
 
     useEffect(() => {
-        fetch("http://localhost:8092/projects/all")
+        fetch("http://localhost:8092/sprints/all")
             .then((resp)  => resp.json())
-            .then((data) => setProjects(data));
+            .then((data) => setSprints(data));
     },[]);
     
     const openNew = () => {
-        setProject(emptyProject);
+        setSprint(emptySprint);
         setSubmitted(false);
-        setProjectDialog(true);
+        setSprintDialog(true);
     }
     const hideDialog = () => {
         setSubmitted(false);
-        setProjectDialog(false);
+        setSprintDialog(false);
     }
    
-    const saveProject = async () => {
-        if (!project.id) {
+    const saveSprint = async () => {
+        if (!Sprint.id) {
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Please fill in the ID field.' });
-        } else if (!project.titre) {
+        } else if (!Sprint.description) {
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Please fill in the Titre field.' });
-        } else if (!project.startDate) {
+        } else if (!Sprint.startDate) {
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Please select a Start Date.' });
-        } else if (!project.endDate) {
+        } else if (!Sprint.endDate) {
             toast.current.show({ severity: 'error', summary: 'Error', detail: 'Please select an End Date.' });
         } else {
        
             setSubmitted(true);
             
-            fetch('http://localhost:8092/projects', {
+            fetch('http://localhost:8092/sprints', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 mode: 'cors',
-                body: JSON.stringify(project),
+                body: JSON.stringify(Sprint),
             });
-            setProjectDialog(false);
-            setProject(emptyProject);
+            setSprintDialog(false);
+            setSprint(emptySprint);
         }    
        
     };
-        const editProject = (rowData) => {
-            setProject({ ...rowData });
+        const editSprint = (rowData) => {
+            setSprint({ ...rowData });
             setUpdateDialog(true); 
         };
     
     
-        const updateProject = async () => {
+        const updateSprint = async () => {
             try {
-                const response = await fetch(`http://localhost:8092/projects/update/${project.id}`, {
+                const response = await fetch(`http://localhost:8092/sprints/update/${Sprint.id}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     mode: 'cors',
-                    body: JSON.stringify(project),
+                    body: JSON.stringify(Sprint),
                 });
         
                 if (response.ok) {
-                    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Project Updated', life: 3000 });
-                    setUpdateDialog(false);
-                    setProject(emptyProject);
-                    
+                    toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Sprint Updated', life: 3000 });
+                    setUpdateDialog(false); 
+                    setSprint(emptySprint); 
                 } else {
-                    // Handle error if the update fails
+                    
                     console.error('Update failed:', response.status);
                 }
             } catch (error) {
-                // Handle fetch error
+               
                 console.error('Update error:', error);
             }
         };
         
                 
 
-    const hidedeleteProjectDialog = () => {
-        setDeleteProjectDialog(false);
+    const hidedeleteSprintDialog = () => {
+        setDeleteSprintDialog(false);
     }
 
-    const hidedeleteProjectsDialog = () => {
-        setDeleteProjectsDialog(false);
+    const hidedeleteSprintsDialog = () => {
+        setDeleteSprintsDialog(false);
     }
-    const confirmDeleteProject = (project) => {
-        setProject(project);
-        setDeleteProjectDialog(true);
+    const confirmDeleteSprint = (Sprint) => {
+        setSprint(Sprint);
+        setDeleteSprintDialog(true);
     }
   
-    const deleteProject= () => {
-        let _project = {...project};
-        let idProject = _project.id;
-        fetch('http://localhost:8092/projects/delete/' + idProject, {
+    const deleteSprint= () => {
+        let _Sprint = {...Sprint};
+        let idSprint = _Sprint.id;
+        fetch('http://localhost:8092/sprints/delete/' + idSprint, {
         method: 'POST',
         })
-        setDeleteProjectDialog(false);
-        setProject(emptyProject);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Project Deleted', life: 3000 });
+        setDeleteSprintDialog(false);
+        setSprint(emptySprint);
+        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Sprint Deleted', life: 3000 });
         window.location.reload(false);
 
         
     }
    
     const confirmDeleteSelected = () => {
-        setDeleteProjectsDialog(true);
+        setDeleteSprintsDialog(true);
     }
-    const deleteselectedProjects = () => {
-        let _Projects = projects.filter(val => !selectedProjects.includes(val));
-        setProjects(_Projects);
-        setDeleteProjectsDialog(false);
-        setSelectedProjects(null);
-        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Projects Deleted', life: 3000 });
+    const deleteselectedSprints = () => {
+        let _Sprints = Sprints.filter(val => !selectedSprints.includes(val));
+        setSprints(_Sprints);
+        setDeleteSprintsDialog(false);
+        setSelectedSprints(null);
+        toast.current.show({ severity: 'success', summary: 'Successful', detail: 'Sprints Deleted', life: 3000 });
     }  
     
     const onInputChange = (e, name) => {
         const val = (e.target && e.target.value) || '';
-        let _project = {...project};
-        _project[`${name}`] = val;
-        setProject(_project);
+        let _Sprint = {...Sprint};
+        _Sprint[`${name}`] = val;
+        setSprint(_Sprint);
         }
     
         const rightToolbarTemplate = () => {
             return (
                 <React.Fragment>
                     <Button label="New" icon="pi pi-plus" className="p-button-info mr-2" onClick={openNew} />
-                    <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedProjects || !selectedProjects.length} />
+                    <Button label="Delete" icon="pi pi-trash" className="p-button-danger" onClick={confirmDeleteSelected} disabled={!selectedSprints || !selectedSprints.length} />
                 </React.Fragment>
             )
         }
@@ -173,40 +179,39 @@ const Projets = () => {
       const actionBodyTemplate = (rowData) => {
             return (
                 <React.Fragment>
-                    <Button icon="pi pi-pencil" className=" p-button-rounded p-button-success mr-4" onClick={() => editProject(rowData)} />
-                    <Button icon="pi pi-trash" className="p-button-danger"  onClick={() => confirmDeleteProject(rowData)} />
+                    <Button icon="pi pi-pencil" className=" p-button-rounded p-button-success mr-4" onClick={() => editSprint(rowData)} />
+                    <Button icon="pi pi-trash" className="p-button-danger"  onClick={() => confirmDeleteSprint(rowData)} />
                 </React.Fragment>
             );
         } 
    
-    const hideProjectDialog = () => {
+    const hideSprintDialog = () => {
     setSubmitted(false);
-    setProjectDialog(false);
+    setSprintDialog(false);
 };
 
-    const projectDialogFooter = (
+    const SprintDialogFooter = (
         <React.Fragment>
             <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideDialog} />
-            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveProject} />
+            <Button label="Save" icon="pi pi-check" className="p-button-text" onClick={saveSprint} />
         </React.Fragment>
     );
-    const deleteProjectDialogFooter = (
+    const deleteSprintDialogFooter = (
         <React.Fragment>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hidedeleteProjectDialog} />
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteProject} />
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hidedeleteSprintDialog} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteSprint} />
         </React.Fragment>
     );
-    const deleteProjectsDialogFooter = (
+    const deleteSprintsDialogFooter = (
         <React.Fragment>
-            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hidedeleteProjectsDialog} />
-            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteselectedProjects} />
+            <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hidedeleteSprintsDialog} />
+            <Button label="Yes" icon="pi pi-check" className="p-button-text" onClick={deleteselectedSprints} />
         </React.Fragment>
     );
     
     const header = (
-       
-        <div className="table-header ">
-            <h3 className="mx-0 my-3 text-center">LISTE DES PROJETS</h3>
+        <div className="table-header">
+            <h5 className="mx-0 my-1">GESTION DES Sprint</h5>
             <span className="p-input-icon-left">
                 <i className="pi pi-search" />
                 <InputText type="search" onChange={(e) => setGlobalFilter(e.target.value)} placeholder="Search..." />
@@ -220,15 +225,18 @@ const Projets = () => {
     const updateDialogFooter = (
         <React.Fragment>
             <Button label="Cancel" icon="pi pi-times" className="p-button-text" onClick={hideUpdateDialog} />
-            <Button label="Update" icon="pi pi-check" className="p-button-text" onClick={updateProject} />
+            <Button label="Update" icon="pi pi-check" className="p-button-text" onClick={updateSprint} />
         </React.Fragment>
     );
    
     
     const columns = [
         { field: 'titre', header: 'Titre' },
+        { field: 'description', header: 'Description' },
         { field: 'startDate', header: 'Start Date' },
         { field: 'endDate', header: 'End Date' },
+        { field: 'statut', header: 'Statut' }
+
         
     ];
     
@@ -240,7 +248,7 @@ const Projets = () => {
     
     const actionColumn = <Column key="actions" body={actionBodyTemplate} header="Actions" />;
     return (
-        <div className="project-container">
+        <div className="Sprint-container">
         <Navbar />
         <div className="datatable-crud-demo">
             <div className="list-text"></div>
@@ -248,10 +256,10 @@ const Projets = () => {
             <div className="card">
             <Toolbar className="mb-4" right={rightToolbarTemplate}></Toolbar>
                 <DataTable
-                    ref={dt}value={projects}selection={selectedProjects}onSelectionChange={(e) => setSelectedProjects(e.value)}
+                    ref={dt}value={Sprints}selection={selectedSprints}onSelectionChange={(e) => setSelectedSprints(e.value)}
                     dataKey="id"paginator rows={10} rowsPerPageOptions={[5, 10, 25]}  
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} projects"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} Sprints"
                     globalFilter={globalFilter} header={header} responsiveLayout="scroll">
             
                 <Column selectionMode="multiple" headerStyle={{ width: '3rem' }} exportable={false}></Column>
@@ -259,52 +267,52 @@ const Projets = () => {
                     <Column header="Actions" body={actionBodyTemplate} exportable={false} style={{ minWidth: '8rem' }}></Column>
                     </DataTable>
                 </div>
-                <Dialog visible={projectDialog} style={{ width: '450px' }} header="Project Details" modal className="p-fluid" footer={projectDialogFooter} onHide={hideDialog}>
+                <Dialog visible={SprintDialog} style={{ width: '450px' }} header="Sprint Details" modal className="p-fluid" footer={SprintDialogFooter} onHide={hideDialog}>
             <div className="field">
                 <label htmlFor="ID">ID</label>
-                <InputText id="ID" value={project.id} onChange={(e) => onInputChange(e, 'id')} autoFocus />
+                <InputText id="ID" value={Sprint.id} onChange={(e) => onInputChange(e, 'id')} autoFocus />
             </div>
             <div className="field">
-                <label htmlFor="Titre">Titre</label>
-                <InputText id="Titre" value={project.titre} onChange={(e) => onInputChange(e, 'titre')} />
-                {!project.titre && submitted && <small className="p-error"></small>}
+                <label htmlFor="Description">Description</label>
+                <InputText id="Description" value={Sprint.titre} onChange={(e) => onInputChange(e, 'titre')} />
+                {!Sprint.titre && submitted && <small className="p-error"></small>}
             </div>
             <div className="field">
                 <label htmlFor="StartDate">StartDate</label>
                 <Calendar
                     id="StartDate"
-                    value={project.startDate}
+                    value={Sprint.startDate}
                     onChange={(e) => onInputChange(e, 'startDate')}
                     showIcon
                 />
-                {!project.startDate && submitted && <small className="p-error"></small>}
+                {!Sprint.startDate && submitted && <small className="p-error"></small>}
             </div>
             <div className="field">
                 <label htmlFor="endDate">EndDate</label>
                 <Calendar
                     id="endDate"
-                    value={project.endDate}
+                    value={Sprint.endDate}
                     onChange={(e) => onInputChange(e, 'endDate')}
                     showIcon
                 />
-                {!project.endDate && submitted && <small className="p-error"></small>}
+                {!Sprint.endDate && submitted && <small className="p-error"></small>}
             </div>
         </Dialog>
 
-            <Dialog visible={updateDialog} style={{ width: '450px' }} header="Update Project" modal className="p-fluid" footer={updateDialogFooter} onHide={hideUpdateDialog}>    <div className="field">
+            <Dialog visible={updateDialog} style={{ width: '450px' }} header="Update Sprint" modal className="p-fluid" footer={updateDialogFooter} onHide={hideUpdateDialog}>            <div className="field">
                 <label htmlFor="ID">ID</label>
-                <InputText id="ID" value={project.id} onChange={(e) => onInputChange(e, 'id')} autoFocus />
+                <InputText id="ID" value={Sprint.id} onChange={(e) => onInputChange(e, 'id')} autoFocus />
             </div>
             <div className="field">
                 <label htmlFor="Titre">Titre</label>
-                <InputText id="Titre" value={project.titre} onChange={(e) => onInputChange(e, 'titre')} />
+                <InputText id="Titre" value={Sprint.titre} onChange={(e) => onInputChange(e, 'titre')} />
                
             </div>
             <div className="field">
                 <label htmlFor="StartDate">StartDate</label>
                 <Calendar
                     id="StartDate"
-                    value={project.startDate}
+                    value={Sprint.startDate}
                     onChange={(e) => onInputChange(e, 'startDate')}
                     showIcon
                 />
@@ -314,7 +322,7 @@ const Projets = () => {
                 <label htmlFor="endDate">EndDate</label>
                 <Calendar
                     id="endDate"
-                    value={project.endDate}
+                    value={Sprint.endDate}
                     onChange={(e) => onInputChange(e, 'endDate')}
                     showIcon
                 />
@@ -324,17 +332,17 @@ const Projets = () => {
         </Dialog>
 
 
-            <Dialog visible={deleteProjectDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProjectDialogFooter} onHide={hidedeleteProjectDialog}>
+            <Dialog visible={deleteSprintDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteSprintDialogFooter} onHide={hidedeleteSprintDialog}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem'}} />
-                    {project && <span>Are you sure you want to delete <b>{project.titre}</b>?</span>}
+                    {Sprint && <span>Are you sure you want to delete <b>{Sprint.titre}</b>?</span>}
                 </div>
             </Dialog>
 
-            <Dialog visible={deleteProjectsDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteProjectsDialogFooter} onHide={hidedeleteProjectsDialog}>
+            <Dialog visible={deleteSprintsDialog} style={{ width: '450px' }} header="Confirm" modal footer={deleteSprintsDialogFooter} onHide={hidedeleteSprintsDialog}>
                 <div className="confirmation-content">
                     <i className="pi pi-exclamation-triangle mr-3" style={{ fontSize: '2rem'}} />
-                    {project && <span>Are you sure you want to delete the selected projects?</span>}
+                    {Sprint && <span>Are you sure you want to delete the selected Sprints?</span>}
                 </div>
             </Dialog>
             </div>
@@ -343,4 +351,4 @@ const Projets = () => {
 }
 
 
-    export default Projets;    
+    export default Sprint;    
